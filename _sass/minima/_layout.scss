@@ -244,10 +244,8 @@
 
 .post-content {
   margin-bottom: $spacing-unit;
-  text-align: justify;
 
   h2 {
-    text-align: left;
     @include relative-font-size(1.75);
 
     @media screen and (min-width: $on-large) {
@@ -256,7 +254,6 @@
   }
 
   h3 {
-    text-align: left;
     @include relative-font-size(1.375);
 
     @media screen and (min-width: $on-large) {
@@ -265,7 +262,6 @@
   }
 
   h4 {
-    text-align: left;
     @include relative-font-size(1.125);
 
     @media screen and (min-width: $on-large) {
