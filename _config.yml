@@ -3,7 +3,7 @@ author: Briana S.
 email: admin@brianasz.com
 description: > # this means to ignore newlines until "twitter_username:"
   My little geek space. 
-
+baseurl:
 # social links
 twitter_username: brianaszdotcom
 github_username:  brianasz
