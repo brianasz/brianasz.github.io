@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The confusing haproxy and keepalived configuration I found.
+title: The confusing haproxy and keepalived configuration I found
 ---
 
 Recently I had a very confusing question in my job about a configuration I knew nothing about. 
