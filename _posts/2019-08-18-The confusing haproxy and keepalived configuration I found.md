@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The confusing haproxy and keepalived configuration I found
+title: Confusing haproxy and keepalived configuration
 ---
 
 Recently I had a very confusing question in my job about a configuration I knew nothing about. 
@@ -191,9 +191,9 @@ It was a little bit confusing to map all the different components of this setup 
 Anyway, I'm glad I was asked about this set up, otherwise I wouln't know how it worked and wouldn't have improved my skills. Now if someone else ask, I can speak about it with more confidence. 
 
 ## References ##
-https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-web-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04
-http://www.haproxy.org/download/1.2/doc/architecture.txt
-https://www.howtoforge.com/setting-up-a-high-availability-load-balancer-with-haproxy-keepalived-on-debian-lenny
+[How to set up available web servers with keepalived and floating IPs](https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-web-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04)
 
+[Haproxy architecture](http://www.haproxy.org/download/1.2/doc/architecture.txt)
 
+[Setting up a high availability load balancer with haproxy and keepalived](https://www.howtoforge.com/setting-up-a-high-availability-load-balancer-with-haproxy-keepalived-on-debian-lenny)
 
