@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys -->
+<html lang="en" style="font-size: 14px; height: 100%;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Getting started with surrogate keys | Fastly Help Guides</title>
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="alternate" title="Documentation Changes RSS" href="https://docs.fastly.com/changes/rss" type="application/rss+xml">
+  <link type="application/opensearchdescription+xml" rel="search" href="https://docs.fastly.com/tab-search.xml">
+  
+  
+
+  <link type="text/css" rel="stylesheet" href="./Getting started with surrogate keys _ Fastly Help Guides_files/vendor-a21322c73642eda9a791c023f190e833e6f8ac802584c65878fc6d9bf1ad82f3.css">
+  <link type="text/css" rel="stylesheet" href="./Getting started with surrogate keys _ Fastly Help Guides_files/default-f52b481d112fa818f256f2376982ab3f05ec2a4c966bfc523833e771031c671e.css">
+  <script async="" src="./Getting started with surrogate keys _ Fastly Help Guides_files/st.js"></script><script async="" src="./Getting started with surrogate keys _ Fastly Help Guides_files/analytics.js"></script><script type="text/javascript" src="./Getting started with surrogate keys _ Fastly Help Guides_files/vendor-2431c3033f09a0edbb127dd41a2c47d02765b70fe956d298e2a69c0a55497457.js"></script>
+  <script type="text/javascript" src="./Getting started with surrogate keys _ Fastly Help Guides_files/default-7239d8c6c8e00fa902f67b12ab9444829c6adee7eae7977d336a40d763bce617.js"></script>
+  
+  
+  
+  <meta property="og:title" content="Getting started with surrogate keys | Fastly Help Guides">
+<meta property="og:locale" content="en">
+<link rel="canonical" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys">
+<meta property="og:url" content="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys">
+<meta property="og:site_name" content="Fastly Docs">
+<meta property="og:image" content="https://docs.fastly.com/img/logo-facebook.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@fastly">
+<meta property="article:publisher" content="https://www.facebook.com/FastlyCDN">
+<script type="application/ld+json">
+{"@type":"WebPage","url":"https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys","image":"https://docs.fastly.com/img/logo-twitter.png","headline":"Fastly Docs","@context":"http://schema.org"}</script>
+
+  <meta name="generator" content="jekyll" data-collection="en_guides" data-rp="_en_guides/getting-started-with-surrogate-keys.md">
+<link type="text/css" rel="stylesheet" charset="UTF-8" href="./Getting started with surrogate keys _ Fastly Help Guides_files/translateelement.css"><script type="text/javascript" charset="UTF-8" src="./Getting started with surrogate keys _ Fastly Help Guides_files/main.js"></script><script type="text/javascript" charset="UTF-8" src="./Getting started with surrogate keys _ Fastly Help Guides_files/element_main.js"></script><link rel="stylesheet" type="text/css" href="./Getting started with surrogate keys _ Fastly Help Guides_files/new_embed-20cee04df5c6e7e2687598f076a0147d.css"><style type="text/css">.st-install-CTAsCU6ktwqaKeTxCkPW .st-ui-result .st-ui-type-heading { color:#e82c2a !important }
+.st-install-CTAsCU6ktwqaKeTxCkPW .st-ui-result em {font-style:normal; font-weight:bold; background-color:#ffff00 !important}</style></head>
+
+<body class="bg-light" style="position: relative; min-height: 100%; top: 0px;">
+  <div class="nh3 d-print-none notranslate" data-swiftype-index="false" data-file="default_header">
+  <nav id="sitenav2" class="navbar _ navbar-expand-lg navbar-light bg-light fredbg py-0" style="clear:both">
+    <a class="navbar-brand" href="https://docs.fastly.com/" style=""><svg id="speedometer" width="25" height="25" viewBox="0 0 180 204.2"><path fill="currentColor" d="M106.1 28.8V14.5h5.2V3.8H68.7v10.7h5.2v14.4C33.6 36.6 3.3 72 3.3 114.4c0 48.1 39 87 87 87 48.1 0 87-39 87-87 0-42.7-30.7-78.1-71.2-85.6zM90.3 69.7zm2.4.1c22.8 1.2 41 19.4 42.3 42.1v5.1c-1.3 22.7-19.5 41-42.3 42.1h-5.1c-22.7-1.3-40.8-19.6-42-42.3v-5.1C47 89.2 65 71.1 87.6 69.8"></path></svg>
+    <span class="">FASTLY <span class="d-none d-sm-inline-block">DOCUMENTATION</span></span></a>
+    <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarTopToggler" aria-controls="navbarTopToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTopToggler">
+      <ul class="navbar-nav site-links mr-auto mt-2 mt-md-0">
+        <li class="nav-item active" data-match="/[a-z]{2}/guides"><a class="nav-link" href="https://docs.fastly.com/en/guides/">GUIDES</a></li>
+        <li class="nav-item" data-match="/api"><a class="nav-link" href="https://docs.fastly.com/api/">API</a></li>
+        <li class="nav-item" data-match="/vcl"><a class="nav-link" href="https://docs.fastly.com/vcl/">VCL</a></li>
+        <li class="nav-item" data-match="/products"><a class="nav-link" href="https://docs.fastly.com/products/">PRODUCTS</a></li>
+        <li class="nav-item" data-match="/changes"><a class="nav-link" href="https://docs.fastly.com/changes/">CHANGELOG</a></li>
+      </ul>
+
+      <ul class="navbar-nav corp-links float-right mt-2 mt-md-0">
+        <li class="nav-item"><a class="nav-link" href="https://manage.fastly.com/">Log in</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://www.fastly.com/signup/">Sign up</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="nh3-search d-none d-sm-block d-print-none">
+    <form class="search-box">
+      <input type="text" id="st-default-search-input" class="st-default-search-input big-search" placeholder="What would you like to learn about today? Search our documentation..." autocomplete="off" autocorrect="off" autocapitalize="off">
+    </form>
+  </div>
+
+</div>
+
+
+
+
+
+  <div class="main_content d-flex mb-4"><span id="top"></span>
+    <div id="left_column" class="left guides" data-swiftype-index="false"><data id="current_nav" data-ppnav="0652e436" data-psnav="476ee0f6"></data>
+<div class="ia-nav">
+
+
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/getting-started">Getting started</a></b><br>
+
+
+
+<details data-pnav="6b2d3594" data-snav="f5ad4938">
+  <summary>Basics</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-the-web-interface-controls">About the web interface controls</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/always-on-ddos-mitigation">Always-on DDoS mitigation</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/browser-recommendations-when-using-the-fastly-web-interface">Browser recommendations when using the Fastly web interface</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/content-and-its-delivery">Content and its delivery</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/fastly-pop-locations">Fastly POP locations</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/getting-started-with-fastly">Getting started with Fastly</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/how-caching-and-cdns-work">How caching and CDNs work</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/how-fastlys-cdn-service-works">How Fastly's CDN Service works</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/http-status-codes-cached-by-default">HTTP status codes cached by default</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/self-provisioned-fastly-services">Self-provisioned Fastly services</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/sign-up-and-create-your-first-service">Sign up and create your first service</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-services">Working with services</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="6b2d3594" data-snav="43542b85">
+  <summary>Domains &amp; Origins</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/adding-cname-records">Adding CNAME records</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/testing-setup-before-changing-domains">Testing setup before changing domains</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-domains">Working with domains</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-health-checks">Working with health checks</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="6b2d3594" data-snav="476ee0f6">
+  <summary>Performance</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/shielding">Shielding</a></li>
+  
+  </ul>
+</details>
+
+
+<hr>
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/configuration">Configuration</a></b><br>
+
+
+
+<details data-pnav="0652e436" data-snav="f5ad4938">
+  <summary>Basics</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/conditionally-changing-a-url">Conditionally changing a URL</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="f8eb525d">
+  <summary>Conditions</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-conditions">About conditions</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/troubleshooting-conditions">Troubleshooting conditions</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/using-conditions">Using conditions</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="75719660">
+  <summary>Dictionaries</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-edge-dictionaries">About Edge Dictionaries</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/private-dictionaries">Private Edge Dictionaries</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-dictionaries-using-the-api">Working with Edge Dictionaries using the API</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-dictionaries-using-the-web-interface">Working with Edge Dictionaries using the web interface</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-dictionary-items-using-the-api">Working with Edge Dictionary items using the API</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="43542b85">
+  <summary>Domains &amp; Origins</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/changing-origins-based-on-user-location">Changing origins based on user location</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/connecting-to-origins">Connecting to origins</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-global-pops">Enabling global POPs</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/failover-configuration">Failover configuration</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/ipv6-support">IPv6 support</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/maintaining-separate-http-and-https-requests-to-backend-servers">Maintaining separate HTTP and HTTPS requests to origin servers</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/routing-assets-to-different-origins">Routing assets to different origins</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-up-redundant-origin-servers">Setting up redundant origin servers</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/specifying-an-override-host">Specifying an override host</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/using-fastly-with-apex-domains">Using Fastly with apex domains</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="c127cb07">
+  <summary>Request settings</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/checking-multiple-backends-for-a-single-request">Checking multiple backends for a single request</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/how-request-settings-are-applied">How request settings are applied</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/manipulating-the-x-forwarded-for-header">Manipulating the X-Forwarded-For header</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="4f1c4ca3">
+  <summary>Cache settings</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/overriding-caching-defaults-based-on-a-backend-response">Overriding caching defaults based on a backend response</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="26b47e3d">
+  <summary>Headers</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/adding-or-modifying-headers-on-http-requests-and-responses">Adding or modifying headers on HTTP requests and responses</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-cross-origin-resource-sharing">Enabling cross-origin resource sharing (CORS)</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/removing-headers-from-backend-response">Removing headers from backend response</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-content-type-based-on-file-extension">Setting Content Type based on file extension</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/understanding-cache-hit-and-miss-headers-with-shielded-services">Understanding cache HIT and MISS headers with shielded services</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/understanding-the-xtimer-header">Understanding the X-Timer header</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="2bdd95b5">
+  <summary>Responses</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/creating-and-customizing-a-robots-file">Creating and customizing a robots.txt file</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/creating-error-pages-with-custom-responses">Creating error pages with custom responses</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/generating-http-redirects-at-the-edge">Generating HTTP redirects at the edge</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/responses-tutorial">Responses tutorial</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="476ee0f6" class="my-snav" open="open">
+  <summary>Performance</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-dynamic-servers">About Dynamic Servers</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/authenticating-api-purge-requests">Authenticating URL purge requests via API</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/cache-control-tutorial">Cache control tutorial</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/caching-best-practices">Caching configuration best practices</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/controlling-caching">Controlling caching</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/creating-and-using-pools-with-dynamic-servers">Creating and using pools with Dynamic Servers</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/creating-and-using-server-entries-with-dynamic-servers">Creating and using server entries with Dynamic Servers</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-api-caching">Enabling API caching</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-automatic-gzipping">Enabling automatic gzipping</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/failure-modes-with-large-files">Failure modes with large files</a></li>
+  <li class="this-page"><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys">Getting started with surrogate keys</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/http2-server-push">HTTP/2 server push</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/implementing-api-cache-control">Implementing API cache control</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/logging-purge-requests">Logging purge requests</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/making-query-strings-agnostic">Making query strings agnostic</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/purging-api-cache-with-surrogate-keys">Purging API cache with surrogate keys</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/request-collapsing">Request collapsing</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/segmented-caching">Segmented Caching</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/serving-stale-content">Serving stale content</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-surrogate-key-headers-based-on-a-url">Setting Surrogate-Key headers based on a URL</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-surrogate-key-headers-for-amazon-s3-origins">Setting Surrogate-Key headers for Amazon S3 origins</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/single-purges">Single purges</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/soft-purges">Soft purges</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/streaming-miss">Streaming Miss</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/wildcard-purges">Wildcard purges</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="a8307422">
+  <summary>Custom VCL</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/accept-language-header-vcl-features">Accept-Language header VCL features</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/authenticating-before-returning-a-request">Authenticating before returning a request</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/basic-authentication">Basic authentication</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/creating-location-based-tagging">Creating location-based tagging</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/custom-responses-that-dont-hit-origin-servers">Custom responses that don't hit origin servers</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/delivering-different-content-to-different-devices">Delivering different content to different devices</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-url-token-validation">Enabling URL token validation</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/guide-to-vcl">Guide to VCL</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/isolating-header-values-without-regular-expressions">Isolating header values without regular expressions</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/manipulating-the-cache-key">Manipulating the cache key</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/migrating-geolocation-variables-to-the-new-dataset">IP geolocation variables: Migrating to the new dataset</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/overriding-which-ip-address-the-geolocation-features-use">Overriding which IP address the geolocation features use</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/response-cookie-handling">Response Cookie handling</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/support-for-the-edge-control-header">Support for the Edge-Control header</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/understanding-the-different-pass-action-behaviors">Understanding the different PASS action behaviors</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/using-edge-side-includes">Using edge side includes (ESI)</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/vcl-regular-expression-cheat-sheet">VCL regular expression cheat sheet</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="fc530973">
+  <summary>Image optimization</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/automating-optimization">Automating optimization</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/controlling-image-quality">Controlling image quality</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/cropping-images">Cropping images</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/image-optimization-vcl-boilerplate">Image optimization VCL boilerplate</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/purging-optimized-images">Purging optimized images</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/reorienting-images">Reorienting images</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/resizing-images">Resizing images</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/serving-images">Serving images</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/serving-responsive-images">Serving responsive images</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-up-image-optimization">Setting up image optimization</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/trimming-images">Trimming images</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="0652e436" data-snav="ffbaf58f">
+  <summary>Video</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/adaptive-bitrate-playback-url-guidelines">Adaptive bitrate playback URL guidelines</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/collecting-oftp-metrics">Collecting OTFP metrics</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/configuration-guidelines-for-live-streaming">Configuration guidelines for live streaming</a></li>
+  
+  </ul>
+</details>
+
+
+<hr>
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/security">Security</a></b><br>
+
+
+
+<details data-pnav="8eec7bc4" data-snav="d66f874c">
+  <summary>Access Control Lists</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-acls">About ACLs</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/manually-creating-access-control-lists">Manually creating access control lists</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/using-the-ip-block-list">Using the IP block list</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-acls-using-the-api">Working with ACLs using the API</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/working-with-acls-using-the-web-interface">Working with ACLs using the web interface</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="8eec7bc4" data-snav="ff23e8d3">
+  <summary>Monitoring and testing</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/monitoring-account-activity-with-event-logs">Monitoring account activity with event logs</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/penetration-testing-your-service-behind-fastly">Penetration testing your service behind Fastly</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="8eec7bc4" data-snav="a6590583">
+  <summary>Securing communications</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/accessing-fastlys-ip-ranges">Accessing Fastly's IP ranges</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/support-for-app-transport-security">Support for App Transport Security</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="8eec7bc4" data-snav="5f2f5c0b">
+  <summary>Security measures</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/security-measures">Security measures</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/security-program">Security program</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/technology-compliance">Technology compliance</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="8eec7bc4" data-snav="4929fca9">
+  <summary>TLS</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/domain-validation-for-tls-certificates">Domain validation for TLS certificates</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-hsts-through-fastly">Enabling HSTS through Fastly</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/forcing-a-tls-redirect">Forcing a TLS redirect</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/managing-domains-on-tls-certificates">Managing domains on TLS certificates</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-up-free-tls">Setting up free TLS</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/tls-key-and-certificate-replacement">TLS key and certificate replacement</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/tls-termination">TLS termination</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="8eec7bc4" data-snav="1be576ee">
+  <summary>Web Application Firewall</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-the-fastly-waf-dashboard">About the Fastly WAF dashboard</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/creating-custom-waf-error-page">Creating a custom WAF error page</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/fastly-waf-logging">Fastly WAF logging</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/fastly-waf-rule-set-updates-maintenance">Fastly WAF rule set updates and maintenance</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/managing-fastly-waf">Managing the Fastly WAF</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/web-application-firewall">Web Application Firewall (WAF)</a></li>
+  
+  </ul>
+</details>
+
+
+<hr>
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/integrations">Integrations</a></b><br>
+
+
+
+<details data-pnav="a2e1a877" data-snav="e6be61c3">
+  <summary>Logging endpoints</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-amazon-s3">Log streaming: Amazon S3</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-azure-blob-storage">Log streaming: Microsoft Azure Blob Storage</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-cloudfiles">Log streaming: Cloud Files</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-datadog">Log streaming: Datadog</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-digitalocean-spaces">Log streaming: DigitalOcean Spaces</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-elasticsearch">Log streaming: Elasticsearch</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-ftp">Log streaming: FTP</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-google-bigquery">Log streaming: Google BigQuery</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-google-cloud-storage">Log streaming: Google Cloud Storage</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-honeycomb">Log streaming: Honeycomb</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-kafka">Log streaming: Kafka</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-log-shuttle">Log streaming: Log Shuttle</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-logdna">Log streaming: LogDNA</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-logentries">Log streaming: Logentries</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-loggly">Log streaming: Loggly</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-logplex">Log streaming: Heroku's Logplex</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-openstack">Log streaming: OpenStack</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-papertrail">Log streaming: Papertrail</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-scalyr">Log streaming: Scalyr</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-sftp">Log streaming: SFTP</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-splunk">Log streaming: Splunk</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-sumologic">Log streaming: Sumo Logic</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/log-streaming-syslog">Log streaming: Syslog</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="a2e1a877" data-snav="b9b340e9">
+  <summary>Non-Fastly services</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/amazon-s3">Amazon S3</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/digitalocean-spaces">DigitalOcean Spaces</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/discounted-egress-from-google">Discounted egress from Google</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/google-cloud-storage">Google Cloud Storage</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/google-compute-engine">Google Compute Engine</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/microsoft-azure-blob-storage">Microsoft Azure Blob Storage</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/outbound-data-transfer-from-azure">Outbound data transfer from Azure</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/perimeterx-bot-defender">PerimeterX Bot Defender</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/wasabi">Wasabi</a></li>
+  
+  </ul>
+</details>
+
+
+<hr>
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/diagnostics">Diagnostics</a></b><br>
+
+
+
+<details data-pnav="7d481ffd" data-snav="694d7301">
+  <summary>Streaming logs</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/about-fastlys-realtime-log-streaming-features">About Fastly's Real-Time Log Streaming features</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/changing-log-line-formats">Changing log line formats</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/changing-where-log-files-are-written">Changing where log files are written</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/custom-log-formats">Custom log formats</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/encrypting-logs">Encrypting logs</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-up-remote-log-streaming">Setting up remote log streaming</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/useful-conditions-for-logging">Useful conditions for logging</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/useful-log-formats">Useful log formats</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/useful-variables-to-log">Useful variables to log</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="7d481ffd" data-snav="d788227a">
+  <summary>Debugging techniques</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/changing-connection-timeouts-to-your-origin">Changing connection timeouts to your origin</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/checking-cache">Checking cache</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/debugging-with-mtr">Debugging with mtr</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/debugging-with-webpagetest">Debugging with WebPageTest</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/fastlys-network-status">Fastly's network status</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/google-pagespeed-module-errors">Google Pagespeed module errors</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/googlebot-crawl-stats">Googlebot crawl stats</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/temporarily-disabling-caching">Temporarily disabling caching</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/using-get-instead-of-head-for-command-line-caching-tests">Using GET instead of HEAD for command line caching tests</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="7d481ffd" data-snav="e8968d86">
+  <summary>Common errors</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/common-503-errors">Common 503 errors</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/common-service-and-domain-errors">Common service and domain errors</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/error-1000-with-cloudflare-dns">Error 1000 with CloudFlare DNS</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/fixing-cross-domain-errors">Fixing cross-domain errors</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/loop-detection">Loop detection</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/tls-certificate-errors">TLS certificate errors</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/tls-origin-configuration-messages">TLS origin configuration messages</a></li>
+  
+  </ul>
+</details>
+
+
+<hr>
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/account-info">Account info</a></b><br>
+
+
+
+<details data-pnav="9b308802" data-snav="a0a3da14">
+  <summary>Account management</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/account-lockouts">Account lockouts</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/changing-your-accounts-company-name">Changing your account's company name</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-an-ip-allowlist-for-account-logins-through-the-web-interface">Enabling an IP allowlist for account logins through the web interface</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/enabling-and-disabling-two-factor-authentication">Enabling and disabling two-factor authentication</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/finding-and-managing-your-account-info">Finding and managing your account info</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/using-api-tokens">Using API tokens</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="9b308802" data-snav="acd14c7a">
+  <summary>Billing</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/accounts-and-pricing-plans">Accounts and pricing plans</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/how-we-calculate-your-bill">How we calculate your bill</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/paying-your-bill">Paying your bill</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/who-receives-your-bill">Who receives your bill</a></li>
+  
+  </ul>
+</details>
+<details data-pnav="9b308802" data-snav="f9f36240">
+  <summary>User access and control</summary>
+  <ul class="list-unstyled">
+  <li><a href="https://docs.fastly.com/en/guides/adding-and-deleting-user-accounts">Adding and deleting user accounts</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/configuring-user-roles-and-permissions">Configuring user roles and permissions</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/email-and-password-changes">Email and password changes</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/merging-accounts">Merging accounts</a></li>
+  <li><a href="https://docs.fastly.com/en/guides/setting-up-single-sign-on-sso">Setting up single sign-on (SSO)</a></li>
+  
+  </ul>
+</details>
+
+
+<hr>
+<b style="font-size: larger;"><a href="https://docs.fastly.com/en/guides/reference">Reference</a></b><br>
+
+
+<ul class="list-unstyled">
+<li><a href="https://docs.fastly.com/en/guides/glossary-of-terms">Glossary of terms</a></li>
+<li><a href="https://docs.fastly.com/en/guides/resource-limits">Resource limits</a></li>
+
+</ul>
+
+
+</div>
+
+<div id="recentViewed" class="card" data-crumb="recentViewed" style="display: block;">
+  <div class="card-header" role="tab">Recently viewed <span id="recentClear" class="badge _ badge-pill badge-dark float-right cursor-pointer" title="Clear items">Clear</span></div>
+  <ul id="recentViewedItems" class="list-group list-group-flush"><li class="list-group-item"><a href="https://docs.fastly.com/en/guides/about-the-web-interface-controls">About the web interface controls</a></li><li class="list-group-item"><a href="https://docs.fastly.com/en/guides/resource-limits">Resource limits</a></li><li class="list-group-item"><a href="https://docs.fastly.com/en/guides/perimeterx-bot-defender">PerimeterX Bot Defender</a></li><li class="list-group-item"><a href="https://docs.fastly.com/products/ddos-protection-and-mitigation-service-and-sla">DDoS Protection and Mitigation Service and SLA</a></li></ul>
+</div>
+
+  
+</div>
+<div id="right_column" class="right guides article_wrap_left">
+  
+
+<nav class="d-print-none" aria-label="breadcrumb" data-swiftype-index="false" data-file="wellnav-guides-article-ia">
+<ol class="breadcrumb p-1">
+  <li class="breadcrumb-item"><a data-crumb="1" href="https://docs.fastly.com/"><span class="d-none d-sm-inline">Home</span><span class="d-sm-none"><i class="fas fa-home" aria-hidden="true"></i></span></a></li>
+  <li class="breadcrumb-item"><a data-crumb="2" href="https://docs.fastly.com/en/guides/">Guides</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a data-crumb="3" href="https://docs.fastly.com/en/guides/configuration">Configuration</a></li>
+</ol>
+
+</nav>
+
+
+<section class="rtitle" data-rv-add="true">
+  <h1 class="rheader">Getting started with surrogate keys</h1>
+  
+  
+<p class="lastdate" data-swiftype-index="false"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp; Last updated April 12, 2019</p>
+
+  
+</section>
+
+<p>Efficient cache invalidation is an essential part of keeping your website fast. Purging too much cache using <a href="https://docs.fastly.com/en/guides/single-purges#purging-all-content">purge all</a> may increase your website's load time while the cache rebuilds. If you find yourself purging all cache on more than a weekly basis, consider using surrogate keys for more targeted purging.</p>
+
+<p>Surrogate keys allow you to selectively purge related content. Using the <code class="highlighter-rouge notranslate">Surrogate-Key</code> header, you can tag a group of objects with a key term, a string of any characters you want, and then use that term to purge multiple pieces of content at once. This process can occur automatically within your application, making it easier to cache and purge content that changes rapidly and unpredictably.</p>
+
+<section class="alert alert-info" role="alert"><p><span class="fas fa-info-circle" aria-hidden="true"></span> <strong>NOTE:</strong> This guide assumes you're already familiar with <a href="https://docs.fastly.com/en/guides/how-caching-and-cdns-work">the way content delivery networks (CDNs) work</a> in general, and <a href="https://docs.fastly.com/en/guides/how-fastlys-cdn-service-works">the way Fastly's CDN works</a> in particular.</p></section>
+
+<h2 id="understanding-surrogate-keys" class="clickable-header">Understanding surrogate keys<a class="header-link" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#understanding-surrogate-keys"><span class="fas fa-link"></span></a></h2>
+
+<p>After you've signed up for Fastly and <a href="https://docs.fastly.com/en/guides/working-with-services#creating-a-new-service">added one or more services</a>, you can start examining how your origin server responds to requests. When your origin server responds to an HTTP request for content, it's because Fastly hasn't yet cached that content or the cache has expired. Your server's response to the request will resemble the example shown below. (Note that you can use the <a href="https://docs.fastly.com/en/guides/checking-cache">curl command</a> to inspect any of your server's responses.)</p>
+
+<div class="highlighter-rouge"><div class="highlight notranslate"><pre class="highlight"><code class="notranslate"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>HTTP/1.1 200 OK
+Content-Type: text/html
+Connection: keep-alive
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To control how your content is served to users and cached by Fastly, you can <a href="https://docs.fastly.com/en/guides/adding-or-modifying-headers-on-http-requests-and-responses">add to or modify the headers</a> that are included in your origin server's response. The <code class="highlighter-rouge notranslate">Surrogate-Key</code> header is one of the headers that you can add to the response. It allows you to "tag" an object, such as an image or a blog post, with one or more keys. When the object changes, you can reference the key in a <a href="https://docs.fastly.com/en/guides/single-purges">purge request</a> to remove the object from the cache.</p>
+
+<p>You can add space-delimited strings to the <code class="highlighter-rouge notranslate">Surrogate-Key</code> header, like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight notranslate"><pre class="highlight"><code class="notranslate"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>HTTP/1.1 200 OK
+Surrogate-Key: key1 key2 key3
+Content-Type: text/html
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This response contains three surrogate keys: <code class="highlighter-rouge notranslate">key1</code>, <code class="highlighter-rouge notranslate">key2</code>, and <code class="highlighter-rouge notranslate">key3</code>. When Fastly receives a response like this, we use the surrogate keys to create a mapping from each key to the cached content, then we strip out the <code class="highlighter-rouge notranslate">Surrogate-Key</code> header so it's not included in the response to your readers.</p>
+
+<section class="alert alert-success" role="alert"><p><span class="fas fa-star" aria-hidden="true"></span> <strong>TIP:</strong> You can't use duplicate surrogate keys. For example, if you tried to use <code class="highlighter-rouge notranslate">foo</code>, <code class="highlighter-rouge notranslate">bar</code>, and <code class="highlighter-rouge notranslate">foo</code>, the two <code class="highlighter-rouge notranslate">foo</code>s would be collapsed into a single instance of the term.</p></section>
+
+<h3 id="creating-relationships-between-keys-and-objects" class="clickable-header">Creating relationships between keys and objects<a class="header-link" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#creating-relationships-between-keys-and-objects"><span class="fas fa-link"></span></a></h3>
+
+<p>One of the major advantages of surrogate keys is that they allow for a many-to-many relationship between keys and objects. An origin server's response can associate multiple keys with the object and the same key can be provided in different responses. Take a look at these two requests and responses:</p>
+
+<div class="highlighter-rouge"><div class="highlight notranslate"><pre class="highlight"><code class="notranslate"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>GET /blog/ HTTP/1.1
+Host: www.example.com
+
+HTTP/1.1 200 OK Content-Type: text/html
+Content-Length: 1234
+Surrogate-Key: mainpage template-a
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight notranslate"><pre class="highlight"><code class="notranslate"><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>GET /blog/article/fastly-rocks HTTP/1.1
+Host: www.example.com
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 2345
+Surrogate-Key: template-a article-fastly-rocks
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In this example, there are two objects (<code class="highlighter-rouge notranslate">/blog</code> and <code class="highlighter-rouge notranslate">/blog/article/fastly-rocks</code>) with three keys (<code class="highlighter-rouge notranslate">mainpage</code>, <code class="highlighter-rouge notranslate">template-a</code>, and <code class="highlighter-rouge notranslate">article-fastly-rocks</code>). Two of the keys (<code class="highlighter-rouge notranslate">mainpage</code> and <code class="highlighter-rouge notranslate">article-fastly-rocks</code>) are associated with a single object and a third key (<code class="highlighter-rouge notranslate">template-a</code>) is associated with both objects.</p>
+
+<h3 id="purging-objects-with-surrogate-keys" class="clickable-header">Purging objects with surrogate keys<a class="header-link" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#purging-objects-with-surrogate-keys"><span class="fas fa-link"></span></a></h3>
+
+<p>By using the <code class="highlighter-rouge notranslate">Surrogate-Key</code> header to associate keys with one or more objects, you can precisely control which objects are removed from cache during a purge. Consider the example presented above. Purging the <code class="highlighter-rouge notranslate">mainpage</code> key would remove only the <code class="highlighter-rouge notranslate">/blog</code> object from the cache. On the other hand, purging the <code class="highlighter-rouge notranslate">template-a</code> key would remove both the <code class="highlighter-rouge notranslate">/blog</code> and <code class="highlighter-rouge notranslate">/blog/article/fastly-rocks</code> objects from the cache.</p>
+
+<p>You can use the Fastly web interface to <a href="https://docs.fastly.com/en/guides/single-purges#purging-with-keys">manually purge objects via key</a>, or you can use our <a href="https://docs.fastly.com/api/purge">Purge API</a>. If you're using Fastly to cache your API, check out the guide on <a href="https://docs.fastly.com/en/guides/purging-api-cache-with-surrogate-keys">purging API cache with surrogate keys</a> to learn how surrogate keys can help you.</p>
+
+<h2 id="generating-and-setting-surrogate-keys" class="clickable-header">Generating and setting surrogate keys<a class="header-link" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#generating-and-setting-surrogate-keys"><span class="fas fa-link"></span></a></h2>
+
+<p>There are two ways to set the <code class="highlighter-rouge notranslate">Surrogate-Key</code> header: by adding the header in the Fastly web interface, or by generating the keys with your own application. We describe how to use the Fastly web interface in our guide to <a href="https://docs.fastly.com/en/guides/setting-surrogate-key-headers-based-on-a-url">generating Surrogate-Key headers based on URLs</a> (we have a separate guide for <a href="https://docs.fastly.com/en/guides/setting-surrogate-key-headers-for-amazon-s3-origins">Amazon S3 origins</a>).</p>
+
+<p>However, it is more useful to make your surrogate key associations on your own application server and include them in the HTTP response that you send to Fastly.  This way, you can assign exactly the keys that you want on every response.</p>
+
+<h2 id="troubleshooting" class="clickable-header">Troubleshooting<a class="header-link" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#troubleshooting"><span class="fas fa-link"></span></a></h2>
+
+<p>You can check the surrogate keys for a URL by using the <code class="highlighter-rouge notranslate">Fastly-Debug: 1</code> header. See the instructions on <a href="https://docs.fastly.com/en/guides/checking-cache#using-a-fastly-debug-header-with-curl">using a Fastly-Debug header with curl</a> for more information.</p>
+
+<h2 id="limitations" class="clickable-header">Limitations<a class="header-link" href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#limitations"><span class="fas fa-link"></span></a></h2>
+
+<p>The surrogate keys sent by your origin server can be as simple or complex as you need, subject to size limitations. Individual surrogate keys may not exceed 1,024 bytes in length, and a <code class="highlighter-rouge notranslate">Surrogate-Key</code> header value (comprising one or more space-separated keys) must not exceed 16,384 bytes in length. If either of these limits is reached while parsing a <code class="highlighter-rouge notranslate">Surrogate-Key</code> header, the key currently being parsed and all keys following it within the same header will be ignored.</p>
+
+
+
+<form accept-charset="UTF-8" action="https://formkeep.com/f/7a402cfe248d" method="POST" id="feedback" class="d-print-none mt-3">
+
+<input type="hidden" name="utf8" value="✓">
+<input type="hidden" name="url" value="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys">
+<input type="hidden" name="path" value="/en/guides/getting-started-with-surrogate-keys">
+<div class="border p-4 bg-light rounded" data-swiftype-index="false" style="margin-top: 20px; min-width: 250px;">
+  <div class="top-line" style="">
+    <label class="pr-4 font-weight-bold">Was this guide helpful?</label>
+
+    <div class="btn-group btn-group-toggle bg-white" role="group" data-toggle="buttons" style="margin-top: -3px;">
+      <label class="btn btn-outline-success cursor-pointer">
+        <input type="radio" name="approve" value="yes" required="">
+        <i class="far fa-thumbs-up" aria-hidden="true"></i> Yes
+      </label>
+      <label class="btn btn-outline-danger cursor-pointer">
+        <input type="radio" name="approve" value="no" required="">
+        <i class="far fa-thumbs-down" aria-hidden="true"></i> No
+      </label>
+    </div>
+  </div>
+
+  <div id="feedback_2" class="mt-4" style="display:none;">
+    <label style="font-size: 11pt; font-weight: normal;">Tell us what worked and what we could do better.</label>
+    <textarea class="form-control" rows="2" name="comments" style="margin-bottom: 20px;"></textarea>
+    <input class="btn btn-outline-secondary" type="submit" value="Submit">
+
+    <p style="margin-top: 20px; font-size: 10pt; font-weight: normal;">Do not use this form to send sensitive information. If you need assistance, contact <a href="mailto:support@fastly.com">support@fastly.com</a>.</p>
+  </div>
+</div>
+</form>
+
+
+
+
+
+<a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#top" class="back-to-top" style="display: none;">Back to Top</a>
+
+</div>
+<div id="very_right_column" class="pl-0 article_wrap_right">
+  <div id="toc" class="jstoc my-3 d-print-none border-left" data-swiftype-index="false" style="display: inline-block;"><div class="cursor-pointer py-0 px-3 " id="headingToc" role="button" data-toggle="collapse" data-parent="#headingToc" href="#collapseToc" aria-expanded="true" aria-controls="collapseToc"><b>Contents</b></div><div id="collapseToc" class="collapse show" role="tabpanel" aria-labelledby="headingToc"><div class="card-body p-1"> <ul class="list-unstyled mb-0 ml-2"><li class=""><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#understanding-surrogate-keys">Understanding surrogate keys</a><ul class="list-unstyled mb-0 ml-2"><li class=""><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#creating-relationships-between-keys-and-objects">Creating relationships between keys and objects</a></li><li class=""><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#purging-objects-with-surrogate-keys">Purging objects with surrogate keys</a></li></ul></li><li class=""><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#generating-and-setting-surrogate-keys">Generating and setting surrogate keys</a></li><li class=""><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#troubleshooting">Troubleshooting</a></li><li class=""><a href="https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys#limitations">Limitations</a></li></ul></div></div></div>
+  
+
+</div>
+
+  </div>
+
+  <footer id="thefooter" class="notranslate" data-swiftype-index="false" data-file="default_footer">
+
+<div id="thefooter-bar">
+  <div class="tf-bar-contents auto95">
+    <span class="float-left" style="">
+      <img src="./Getting started with surrogate keys _ Fastly Help Guides_files/footer-hand.png" alt="Hand waving icon" style="padding-right: 1em; display: inline-block; height: 3rem;">
+      <span class="" style="font-size: 110%;">Need some help?</span>
+      <a href="https://support.fastly.com/" class="ml-5">Support portal</a>
+      <a href="https://support.fastly.com/hc/en-us/requests/new" class="ml-5">File a ticket</a>
+    </span>
+
+    <span class="float-right" style="display:inline-block; height: 2em; margin-top: 1rem;">
+      <div class="translation_lockup float-right">
+<div id="google_translate_element"><div class="skiptranslate goog-te-gadget" dir="ltr" style=""><div id=":0.targetLanguage" class="goog-te-gadget-simple" style="white-space: nowrap;"><img src="./Getting started with surrogate keys _ Fastly Help Guides_files/cleardot.gif" class="goog-te-gadget-icon" alt="" style="background-image: url(&quot;https://translate.googleapis.com/translate_static/img/te_ctrl3.gif&quot;); background-position: -65px 0px;"><span style="vertical-align: middle;"><a aria-haspopup="true" class="goog-te-menu-value" href="javascript:void(0)"><span>Select Language</span><img src="./Getting started with surrogate keys _ Fastly Help Guides_files/cleardot.gif" alt="" width="1" height="1"><span style="border-left: 1px solid rgb(187, 187, 187);">​</span><img src="./Getting started with surrogate keys _ Fastly Help Guides_files/cleardot.gif" alt="" width="1" height="1"><span aria-hidden="true" style="color: rgb(118, 118, 118);">▼</span></a></span></div></div></div>
+<a href="https://docs.fastly.com/translations" class="inline_on_translate" title="About our translations"><i class="fas fa-question-circle" aria-hidden="true"></i></a>
+</div>
+
+    </span>
+  </div>
+</div>
+
+<br style="clear:both">
+
+<div class="auto95">
+  <div class="float-left tf-block-left">
+    <a href="https://status.fastly.com/"><span class="color-dot fake none"></span> Fastly status</a>
+    <a class="ml-5" href="https://www.fastly.com/">www.fastly.com</a><br>
+    <a href="https://docs.fastly.com/sitemap">Sitemap</a> | <a href="https://docs.fastly.com/translations/">Translations</a> | <a href="https://docs.fastly.com/archives/">Archives</a>
+  </div>
+  <div class="float-right tf-block-right"><!--
+    -->Copyight © 2019 Fastly Inc. All Rights Reserved.<br>
+    <a href="https://docs.fastly.com/compliance/">Policy FAQ</a> | <a href="https://www.fastly.com/acceptable-use">Acceptable Use</a> | <a href="https://www.fastly.com/terms">Terms of Service</a> | <a href="https://www.fastly.com/privacy">Privacy</a>
+  </div>
+</div>
+
+</footer>
+<script defer="" src="./Getting started with surrogate keys _ Fastly Help Guides_files/scout.js"></script>
+
+  <script async="" type="text/javascript" src="./Getting started with surrogate keys _ Fastly Help Guides_files/bizible.js"></script>
+<script type="text/javascript" src="./Getting started with surrogate keys _ Fastly Help Guides_files/f.txt"></script><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./Getting started with surrogate keys _ Fastly Help Guides_files/translate_24dp.png" width="20" height="20" alt="Google Translate"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">Original text</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">Contribute a better translation</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
+
+
+
+<div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div><iframe frameborder="0" class="goog-te-menu-frame skiptranslate" title="Language Translate Widget" style="visibility: visible; box-sizing: content-box; width: 1030px; height: 263px; display: none;" src="./Getting started with surrogate keys _ Fastly Help Guides_files/saved_resource.html"></iframe><div class="st-injected-content-generated st-install-CTAsCU6ktwqaKeTxCkPW" data-st-install-key="CTAsCU6ktwqaKeTxCkPW" id="st-injected-content"><div class="st-default-autocomplete" data-st-target-element=".st-default-search-input" style="display: none;">
+  <div class="st-autocomplete-results st-ui-autocomplete"><div class="st-query-present" style="display: none;"></div></div>
+</div>
+</div><div class="st-injected-content-generated st-install-CTAsCU6ktwqaKeTxCkPW __st-search-container" data-st-install-key="CTAsCU6ktwqaKeTxCkPW">
+<div class="st-ui-embed " style="">
+  <!-- Swiftype input and results overlay -->
+  <div class="st-ui-container st-ui-injected-container   st-ui-injected-on-page-container">
+    <!-- HEADER -->
+    <div class="st-ui-container-header_bar st-position-container">
+    </div>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="st-ui-container-left_sidebar st-position-container">
+      <div class="st-ui-injected-search-controls">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="st-ui-container-right_sidebar st-position-container">
+      <div class="st-ui-injected-container-right_sidebar">
+        <div class="st-ui-injected-search-controls">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMARY CONTENT -->
+    <div class="st-ui-container-primary_content st-position-container">
+        <div class="st-ui-injected-search-summary st-search-summary"></div>
+        <div class="st-ui-injected-content st-search-results"><div class="st-query-present" style="display: none;"></div></div>
+
+      <section class="st-ui-no-results st-search-suggestions"><div class="st-query-not-present">
+      </div></section>
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <div class="st-ui-container-footer_bar st-position-container">
+      <section class="st-ui-footer">
+        <span class="st-ui-pagination st-search-pagination"></span>
+      </section>
+    </div>
+  </div>
+</div>
+</div></body></html>
