@@ -3,10 +3,10 @@
   <channel>
     <title>Briana's Blog</title>
     <description>Trying the best version of myself</description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Oct 2019 11:53:25 -0500</pubDate>
-    <lastBuildDate>Sun, 06 Oct 2019 11:53:25 -0500</lastBuildDate>
+    <link>https://brianasz.com/</link>
+    <atom:link href="https://brianasz.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 06 Oct 2019 11:55:16 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Oct 2019 11:55:16 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -101,8 +101,8 @@
 &lt;p&gt;&lt;a href=&quot;http://varnish-cache.org/docs/trunk/users-guide/vcl.html&quot;&gt;Varnish Configuration Language&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Sep 2019 00:00:00 -0500</pubDate>
-        <link>http://yourdomain.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</guid>
+        <link>https://brianasz.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</link>
+        <guid isPermaLink="true">https://brianasz.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</guid>
         
         
       </item>
@@ -306,8 +306,8 @@ vrrp_instance 192.168.3.200 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 </description>
         <pubDate>Sun, 18 Aug 2019 00:00:00 -0500</pubDate>
-        <link>http://yourdomain.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</guid>
+        <link>https://brianasz.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</link>
+        <guid isPermaLink="true">https://brianasz.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</guid>
         
         
       </item>
