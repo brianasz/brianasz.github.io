@@ -315,7 +315,7 @@ pre {
 }
 .postTitle {
   font-weight: 400;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
   letter-spacing: 3px;
   text-indent: 3px;
@@ -355,7 +355,8 @@ pre {
   text-indent: 6px;
   font-family: 'Josefin Sans';
   font-weight: 300;
-  padding-top: 5em;
+  padding-top: 3em; /* 5em */
+  text-align: center;
 }
 .page-title {
   text-transform: uppercase;
@@ -512,7 +513,8 @@ pre {
   margin-bottom: $spacing-unit;
 }
 .post-title {
-  font-size: 62px;
+  font-size: 40px; /* 65px */
+  margin-top: 1em;
 
   text-align: center;
   font-family: "PT Sans";
@@ -525,22 +527,23 @@ pre {
   margin-bottom: $spacing-unit;
   padding-bottom: 3em !important;
   p {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    text-align: justify;
   }
   h2 {
-    font-size: 32px;
+    font-size: 28px; /* 32px */
     @include media-query($on-laptop) {
       font-size: 28px;
     }
   }
   h3 {
-    font-size: 26px;
+    font-size: 22px; /* 26px */
     @include media-query($on-laptop) {
       font-size: 22px;
     }
   }
   h4 {
-    font-size: 20px;
+    font-size: 16px; /* 20px */
     @include media-query($on-laptop) {
       font-size: 18px;
     }
