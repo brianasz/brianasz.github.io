@@ -1,5 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-09-30T15:05:55-05:00</updated><id>/feed.xml</id><title type="html">My little geek space</title><subtitle>My little geek space. 
-</subtitle><author><name>Briana S.</name></author><entry><title type="html">A few concepts about Fastly and Varnish</title><link href="/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html" rel="alternate" type="text/html" title="A few concepts about Fastly and Varnish" /><published>2019-09-30T00:00:00-05:00</published><updated>2019-09-30T00:00:00-05:00</updated><id>/2019/09/30/A%20few%20concepts%20about%20Fastly%20and%20Varnish</id><content type="html" xml:base="/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html">&lt;p&gt;I started to hear about CDNs since I joined my current job. One of the CDNs we use is Fastly, it is being used in almost all of our projects so I got a brief introduction about it when I first joined the company. At that time I learned that Fastly was a Content Delivery Network that sits in front of every project’s infrastructure and handles cache.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Briana's Blog</title>
+    <description>Trying the best version of myself</description>
+    <link>http://yourdomain.com/</link>
+    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 06 Oct 2019 00:40:16 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Oct 2019 00:40:16 -0500</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>A few concepts about Fastly and Varnish</title>
+        <description>&lt;p&gt;I started to hear about CDNs since I joined my current job. One of the CDNs we use is Fastly, it is being used in almost all of our projects so I got a brief introduction about it when I first joined the company. At that time I learned that Fastly was a Content Delivery Network that sits in front of every project’s infrastructure and handles cache.&lt;/p&gt;
 
 &lt;p&gt;Since then, I have barely interacted with it actively, however, I was recently assigned to a new project and they are expected to go live in a couple of weeks but, they are planning on going live only on specific regions of a country and they want authentication set up for one specific region. In order to do that I need to perform configuration changes on Fastly.&lt;/p&gt;
 
@@ -86,7 +98,18 @@
 
 &lt;p&gt;&lt;a href=&quot;https://docs.fastly.com/en/guides/basic-authentication&quot;&gt;Basic Authentication&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://varnish-cache.org/docs/trunk/users-guide/vcl.html&quot;&gt;Varnish Configuration Language&lt;/a&gt;&lt;/p&gt;</content><author><name>Briana S.</name></author><summary type="html">I started to hear about CDNs since I joined my current job. One of the CDNs we use is Fastly, it is being used in almost all of our projects so I got a brief introduction about it when I first joined the company. At that time I learned that Fastly was a Content Delivery Network that sits in front of every project’s infrastructure and handles cache.</summary></entry><entry><title type="html">Confusing haproxy and keepalived configuration</title><link href="/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html" rel="alternate" type="text/html" title="Confusing haproxy and keepalived configuration" /><published>2019-08-18T00:00:00-05:00</published><updated>2019-08-18T00:00:00-05:00</updated><id>/2019/08/18/The%20confusing%20haproxy%20and%20keepalived%20configuration%20I%20found</id><content type="html" xml:base="/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html">&lt;p&gt;Recently I had a very confusing question in my job about a configuration I knew nothing about. 
+&lt;p&gt;&lt;a href=&quot;http://varnish-cache.org/docs/trunk/users-guide/vcl.html&quot;&gt;Varnish Configuration Language&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 30 Sep 2019 00:00:00 -0500</pubDate>
+        <link>http://yourdomain.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Confusing haproxy and keepalived configuration</title>
+        <description>&lt;p&gt;Recently I had a very confusing question in my job about a configuration I knew nothing about. 
 It was a configuration made before I joined the company and it was about an entry in /etc/hosts on every VPS of a specific project, let’s call it project Panda!&lt;/p&gt;
 
 &lt;p&gt;The entry was the following:&lt;/p&gt;
@@ -130,11 +153,11 @@ None of the db servers were &lt;code class=&quot;highlighter-rouge&quot;&gt;192.
 
 &lt;p&gt;&lt;strong&gt;prod-haproxy-000.panda.com “ip addr show” command output:&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4: eth2: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000
-    link/ether bc:76:4e:05:6c:1c brd ff:ff:ff:ff:ff:ff
+    &lt;span class=&quot;nb&quot;&gt;link&lt;/span&gt;/ether bc:76:4e:05:6c:1c brd ff:ff:ff:ff:ff:ff
     inet 192.168.3.4/24 brd 192.168.3.255 scope global eth2
     inet 192.168.3.200/32 scope global eth2
-    inet6 fe80::be76:4eff:fe05:6c1c/64 scope link
-       valid_lft forever preferred_lft forever
+    inet6 fe80::be76:4eff:fe05:6c1c/64 scope &lt;span class=&quot;nb&quot;&gt;link
+       &lt;/span&gt;valid_lft forever preferred_lft forever
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Bingo!!! 
@@ -142,11 +165,11 @@ But, what happens then with the second haproxy server? (It had a different secon
 
 &lt;p&gt;&lt;strong&gt;prod-haproxy-001.panda.com “ip addr show” command output:&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4: eth2: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000
-    link/ether bc:76:4e:05:eb:70 brd ff:ff:ff:ff:ff:ff
+    &lt;span class=&quot;nb&quot;&gt;link&lt;/span&gt;/ether bc:76:4e:05:eb:70 brd ff:ff:ff:ff:ff:ff
     inet 192.168.3.5/24 brd 192.168.3.255 scope global eth2
     inet 192.168.3.201/32 scope global eth2
-    inet6 fe80::be76:4eff:fe05:eb70/64 scope link
-       valid_lft forever preferred_lft forever
+    inet6 fe80::be76:4eff:fe05:eb70/64 scope &lt;span class=&quot;nb&quot;&gt;link
+       &lt;/span&gt;valid_lft forever preferred_lft forever
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I’m not very knowledgeable about haproxy configuration so I remained confused.&lt;/p&gt;
@@ -279,4 +302,15 @@ vrrp_instance 192.168.3.200 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;Haproxy architecture&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.howtoforge.com/setting-up-a-high-availability-load-balancer-with-haproxy-keepalived-on-debian-lenny&quot;&gt;Setting up a high availability load balancer with haproxy and keepalived&lt;/a&gt;&lt;/p&gt;</content><author><name>Briana S.</name></author><summary type="html">Recently I had a very confusing question in my job about a configuration I knew nothing about. It was a configuration made before I joined the company and it was about an entry in /etc/hosts on every VPS of a specific project, let’s call it project Panda!</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://www.howtoforge.com/setting-up-a-high-availability-load-balancer-with-haproxy-keepalived-on-debian-lenny&quot;&gt;Setting up a high availability load balancer with haproxy and keepalived&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 18 Aug 2019 00:00:00 -0500</pubDate>
+        <link>http://yourdomain.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
