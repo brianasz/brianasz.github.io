@@ -1,3 +1,52 @@
+1) Create a new bucket
+gsutil mb -p tacitknowledge-automation-lab gs://siteops369/
+
+forensic-mc-evidence
+
+2) Create service accounts
+gcloud iam service-accounts create siteops369 --display-name "siteops369"
+
+3) Create service accounts keys
+gcloud iam service-accounts keys create sa-siteops369.json --iam-account siteops369@tacitknowledge-automation-lab.iam.gserviceaccount.com
+
+4) Give the service account sufficient permission such that it could perform the request that the signed URL will make.
+gsutil iam ch serviceAccount:siteops369@tacitknowledge-automation-lab.iam.gserviceaccount.com:objectCreator gs://siteops369
+gsutil iam ch serviceAccount:siteops369@tacitknowledge-automation-lab.iam.gserviceaccount.com:objectViewer gs://siteops369
+
+* Storage Object Creator and object Viewer permission granted.
+
+5) gsutil signurl -c 'text/plain' -m RESUMABLE -r us sa-siteops369.json gs://siteops369/file.txt
+
+Good one:   gsutil signurl -m PUT -d 1h -r us -c text/plain sa-siteops369.json gs://siteops369/
+            gsutil signurl -c 'text/plain' -d 10m -m PUT -r us-east1 sa-siteops369.json gs://forensic-mc-evidence/
+
+Good one: 
+            curl -X PUT --upload-file file.txt "https://storage.googleapis.com/siteops369\?x-goog-signature\=530363cc6596ab6b28cad4f4cc302b097b3df4bc470dfe80f316965bb28a1d8d3de7f3f65849f3dec73792c15601ecc72eb8cd5355ea160ae884762d84ea84e58a91ed060682ee9c8b37fc5a6496cf5c998b6f459dcc2474ba911f634f72ec087bdc7a73070460c91a5bdf91d28c4b42360a570bee7a7fe3fb64ffcc14998fb291d13e6de4ba3f8569f470cfc293039e6ba3070d2afcad7f97b3d48bd5fbef8b913b2361249728c46bb3d785a8f82e6dab8b8288038c3acff64d5c4f854ed5a76970283b565d46178cb402c249d6443e37c841044bfa1f63fd81a3c0c29b29040064ff6939098ed7ec252651544b07a75792d18a6e7a74ad8246c627d9b8fddd\&x-goog-algorithm\=GOOG4-RSA-SHA256\&x-goog-credential\=siteops369%40tacitknowledge-automation-lab.iam.gserviceaccount.com%2F20191114%2Fus%2Fstorage%2Fgoog4_request\&x-goog-date\=20191114T213402Z\&x-goog-expires\=3600\&x-goog-signedheaders\=content-type%3Bhost"
+
+            curl -X PUT --upload-file file.txt "https://storage.googleapis.com/forensic-mc-evidence\?x-goog-signature\=7880323101b5c971866593368c73741e0120c51b02264b50569708bad22c1aa8b9a4acd13d88f4c5cb835c6d636311e8ce61dae587a30aab0f1f39921cbd8effd94d9ae3bb085a7208645de76f563791986ed94fa550de009ac8cac3f4dd704b9d7302b8b1847aa2dc64a178a84387545e6fdc7ddbb16ab45cc6394d6ce3a6691507b24f42843bbe5e269f76ccb6eb68e63573d86a5c65226fd6752e8cf2ae5bc955042eba853db9119ca0d309bad12656457180245caa10d6b6d4cbf8613f3e1f94bf7665635cc783dd8b238fc17e9c2f362069c9bd020a8bd83c76ce76d615697385749b478e9687d2ed48f876bf6b289e5dc744d75fead8521c19ab58de91\&x-goog-algorithm\=GOOG4-RSA-SHA256\&x-goog-credential\=siteops369%40tacitknowledge-automation-lab.iam.gserviceaccount.com%2F20191114%2Fus-east1%2Fstorage%2Fgoog4_request\&x-goog-date\=20191114T221200Z\&x-goog-expires\=600\&x-goog-signedheaders\=content-type%3Bhost"
+
+
+Error:
+<?xml version='1.0' encoding='UTF-8'?><Error><Code>MalformedSecurityHeader</Code><Message>Your request has a malformed header.</Message><ParameterName>content-type</ParameterName><Details>Header was included in signedheaders, but not in the request.</Details></Error>%
+
+Solution:
+Missing double quotes to the signurl when issuing the curl command.
+
+Error: 
+<?xml version='1.0' encoding='UTF-8'?><Error><Code>InvalidBucketName</Code><Message>The specified bucket is not valid.</Message><Details>Invalid bucket name: 'forensic-mc-evidence\'</Details></Error>%
+
+Error: 
+<?xml version='1.0' encoding='UTF-8'?><Error><Code>AccessDenied</Code><Message>Access denied.</Message><Details>Anonymous caller does not have storage.objects.create access to forensic-mc-evidence/\.</Details></Error>%
+
+Solution: 
+This happends because the signurl given by gsutil was not properly copied over to curl command. Correct the url and run the curl command again.
+
+
+
+
+
+
+
 Signed URLs = A signed URL is a URL that provides limited permission and time to make a request. Signed URLs contain authentication information in their query string, allowing users without credentials to perform specific actions on a resource. When you generate a signed URL, you specify a user or service account which must have sufficient permission to make the request that the signed URL will make. After you generate a signed URL, anyone who possesses it can use the signed URL to perform specified actions, such as reading an object, within a specified period of time.
 
 Create a Signed URL:

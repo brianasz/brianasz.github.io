@@ -9,3 +9,10 @@ curl is a tool to transfer data from or to a server, using one of the supported 
        SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
 
 curl -s -L -D - http://accept-myshimano.aws.shimano-eu.com/ -o /dev/null -w '%{url_effective}'
+
+
+
+
+-H Header
+-d data
+-X request (request method)
