@@ -1,5 +1,219 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-08-18T14:26:26-05:00</updated><id>/feed.xml</id><title type="html">My little geek space</title><subtitle>My little geek space. 
-</subtitle><author><name>Briana S.</name></author><entry><title type="html">The confusing haproxy and keepalived configuration I found</title><link href="/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html" rel="alternate" type="text/html" title="The confusing haproxy and keepalived configuration I found" /><published>2019-08-18T00:00:00-05:00</published><updated>2019-08-18T00:00:00-05:00</updated><id>/2019/08/18/The%20confusing%20haproxy%20and%20keepalived%20configuration%20I%20found</id><content type="html" xml:base="/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html">&lt;p&gt;Recently I had a very confusing question in my job about a configuration I knew nothing about. 
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Briana's Blog</title>
+    <description>Trying the best version of myself</description>
+    <link>https://brianasz.com/</link>
+    <atom:link href="https://brianasz.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 26 Nov 2019 15:59:54 -0600</pubDate>
+    <lastBuildDate>Tue, 26 Nov 2019 15:59:54 -0600</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Reverting multiple merged commits</title>
+        <description>&lt;p&gt;Ok, let’s talk a little bit about git based on an issue I had recently.&lt;/p&gt;
+
+&lt;h1 id=&quot;context-of-the-issue&quot;&gt;Context of the issue&lt;/h1&gt;
+&lt;p&gt;For this specific project, the system’s servers are managed by Chef, and Chef cookbooks versions running on the servers are controlled by environment files. Normally production would be running whatever its environment file says. So if a cookbook version is updated, production won’t pick it up until its environment file is updated to do so. 
+So I was asked to perform some changes on a cookbook, I did them, created a pull request, it was approved and I merged those changes which meant a new version of the cookbook was created. I repeated the process due to an additional change, so a second new cookbook version was created. The cookbook went from, let’s say, version 0.0.1 to 0.0.3.&lt;/p&gt;
+
+&lt;p&gt;Then I updated a non-prod environment file to point to the cookbook version 0.0.3 and asked the customer to validate the changes and report back when I could point production to the same updated cookbook version.&lt;/p&gt;
+
+&lt;p&gt;But, it turned out, the customer didn’t want to pursue the changes anymore and asked to roll everything back to version 0.0.1, yeii!&lt;/p&gt;
+
+&lt;h1 id=&quot;actual-fix---long-answer&quot;&gt;Actual fix - Long answer&lt;/h1&gt;
+&lt;p&gt;So, this was the output of &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;commit 8003cfd9f00e26a8d377c3c91811ac7d6f1017e2
+Merge: a2652fe 62d5441
+
+    Merged &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;branch XXX &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Bumped cookbook to version 0.0.3&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+commit 62d54412fa1493024cca5bd3bd39be63e8785426 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;origin/branch, branch&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    Branch: commit XXX
+
+commit afda38d89c6d78f5b1d6d07940ca026ca8a48ff8
+
+    Branch: commit XXX
+
+commit 81ecd3e2305a2888d43b629eca3e62f8d503f51e
+
+    Branch: commit XXX
+
+commit 902fd55d512f5dcb9b0187f09d1fa348abcd225a
+
+    Branch: commit XXX
+
+commit a2652fe7665275d9bb7b7ceb3ca043f24d2eee37
+Merge: 702f590 4ae05d1
+
+    Merged &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;branch XXX &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Bumped cookbook to version 0.0.2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+commit 4ae05d1a700748d8c920bd9cc40a06b2fd95f488
+    
+    Branch: commit XXX
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I had two merges done and commits between them of course. The best approach was to revert those commits. So I did the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Revert the first merged commit:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git revert --no-commit 8003cfd9f00e26a8d377c3c91811ac7d6f1017e2 -m 1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: This automatically removed the changes entered by the commits it merged&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I added the following flags to the command:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;--no-commit&lt;/span&gt;: Usually git revert automatically creates some commits with commit log messages stating which commits were reverted. This flag applies the changes necessary to revert the
+           named commits to your working tree and the index, but does not make the commits. In addition, when this option is used, your index does not have to match the HEAD commit.
+           The revert is &lt;span class=&quot;k&quot;&gt;done &lt;/span&gt;against the beginning state of your index.
+
+           This is useful when reverting more than one commits effect to your index &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;a row.
+
+&lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; parent-number
+           Usually you cannot revert a merge because you &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;not know which side of the merge should be considered the mainline. This option specifies the parent number &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;starting from
+           1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; of the mainline and allows revert to reverse the change relative to the specified parent.
+
+           Reverting a merge commit declares that you will never want the tree changes brought &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;by the merge. As a result, later merges will only bring &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;tree changes introduced by
+           commits that are not ancestors of the previously reverted merge. This may or may not be what you want.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Revert the second merged commit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once I reverted the first merged commit with parent number 1, the second merged commit became the parent number 1 in the history. So, in order to remove the second merged commit I needed to run the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git revert --no-commit a2652fe7665275d9bb7b7ceb3ca043f24d2eee37 -m 1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;After that I validated I had my local to the state I wanted it which was cookbook version 0.0.1 and proceeded to commit the changes with a few additional change, I actually bumped the cookbook version to 0.0.4 but kept the cookbook state as it was in the beginning, version 0.0.1. (This move has to do with chef cookbook versioning which I don’t get into details in here).&lt;/p&gt;
+
+&lt;h1 id=&quot;actual-fix---short-answer&quot;&gt;Actual fix - Short answer&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Run &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; to check commit hashes&lt;/li&gt;
+  &lt;li&gt;Identify the hashes of the merged commits&lt;/li&gt;
+  &lt;li&gt;Revert the first merged commit with &lt;code class=&quot;highlighter-rouge&quot;&gt;git revert --no-commit 8003cfd9f00e26a8d377c3c91811ac7d6f1017e2 -m 1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Revert the second merged commit with &lt;code class=&quot;highlighter-rouge&quot;&gt;git revert --no-commit a2652fe7665275d9bb7b7ceb3ca043f24d2eee37 -m 1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Commit the changes&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;First of all, to be honest I don’t think git documentation or even git commands CLI help are that clear. Secondly, the whole purpose of this post was only to show how to fix the mess I got into with these merges and commits and not about chef cookbook versioning. Mentioning that was only to give a little bit of context about how everything started.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/1463340/how-to-revert-multiple-git-commits&quot;&gt;How to revert multuple git commits&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/18082830/reverting-a-series-of-pushed-merges-and-commits-in-git-without-rewriting-histor&quot;&gt;Reverting a series of pushed merges and commits in git&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Nov 2019 00:00:00 -0600</pubDate>
+        <link>https://brianasz.com/2019/11/26/Reverting_merged_commits.html</link>
+        <guid isPermaLink="true">https://brianasz.com/2019/11/26/Reverting_merged_commits.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A few concepts about Fastly and Varnish</title>
+        <description>&lt;p&gt;I started to hear about CDNs since I joined my current job. One of the CDNs we use is Fastly, it is being used in almost all of our projects so I got a brief introduction about it when I first joined the company. At that time I learned that Fastly was a Content Delivery Network that sits in front of every project’s infrastructure and handles cache.&lt;/p&gt;
+
+&lt;p&gt;Since then, I have barely interacted with it actively, however, I was recently assigned to a new project and they are expected to go live in a couple of weeks but, they are planning on going live only on specific regions of a country and they want authentication set up for one specific region. In order to do that I need to perform configuration changes on Fastly.&lt;/p&gt;
+
+&lt;p&gt;So today I learned a couple more things about Fastly and overall CDNs…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;That behind Fastly there is a software named Varnish&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;That Varnish is an HTTP caching system. In fact, Varnish is an HTTP accelerator designed for content-heavy dynamic web sites.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But what does content-heavy dynamic web sites even mean?&lt;/p&gt;
+
+&lt;p&gt;Well, when a website has a lot of dynamic content (web content that changes based on the behavior, preferences, and interests of the user), that will cause the backend servers to be constantly active because every time a resource is requested it will be requested from them since dynamic content is not cacheable. So Varnish helps to easy the workload the backend servers receive by caching part of the content, the static content, hence serving it itself without the need to reach out to it to the backend servers as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;em&gt;Varnish will cash only static content.&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;I also learned that Varnish is designed to work specifically with HTTP.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;That an HTTP accelerator is a proxy server that reduces web site access time.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;That VCL is Varnish Configuration Language and it is the domain specific language of Varnish and the way we apply rules to it. Varnish will translates this configurations into binary code and execute them when the request arrives. In fact, Fastly actually reads a VCL file where we can put all the Varnish rules we want to apply.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;That the VCL file is divided into subroutines that are applied at different times. One is executed when the request arrives to the website and another when files are fetched from the backend servers.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Subroutines:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;vcl_recv = is called at the beginning of a request, after the complete request has been received and parsed. Its purpose is to decide whether or not to serve the request, how to do it, and, if applicable, which backend to use.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;vcl_fetch = is called after a document has been successfully retrieved from the backend. Normal tasks here are to alter the response headers, trigger ESI processing, try alternate backend servers in case the request failed.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;em&gt;According to the documentation, 99% of all the changes you’ll need to do in Varnish will be done in those two subroutines (vcl_recv and vcl_fetch).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So, going back to the reason I got this task, if I need to limit the access to a website to a specific region by using Varnish rules, then I need to add a rule to the vcl_recv subroutine, because that’s the subroutine than decides what to do with the request when it first arrives. Besides that, I also need to make use of Fastly Geolocation VCL features.&lt;/p&gt;
+
+&lt;p&gt;In the case of Fastly, it basically has a list of variables that facilitates making configuration changes on the VCL file. The variable I’ll need to make use of is “client.geo.region”. So, for example, if I want to limit the access to my website, let’s say www.brianasz.com to the states of Sinaloa and Sonora, Mexico, then we need to use something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; client.geo.region &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;SIN&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; client.geo.region &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;SON&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; 
+  error 404 &lt;span class=&quot;s2&quot;&gt;&quot;Not Found&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Where SIN is Sinaloa and SON is Sonora according to the ISO 3166-2 &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# country code subdivision&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What this does is, if traffic coming to the website doesn’t come from the state of Sinaloa or Sonora, Mexico, then the website should return a 404 not found error.&lt;/p&gt;
+
+&lt;p&gt;And how do I set up authentication for one specific region, for example Sinaloa?… With something like this:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; client.geo.region &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;SIN&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt; table.lookup&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;customer_keys, req.http.Authorization&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    error 401 &lt;span class=&quot;s2&quot;&gt;&quot;Restricted&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;that, and with a VCL snippet that contains the actual keys, something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;table customer_keys &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;Basic key_value_pair_basae64_encoded&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;project_name&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;em&gt;The region code is based on ISO 3166-2 country code subdivision.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Sometimes I have a hard time to structure the ideas in my head in order to write something in here. There is plenty of topics to write about and a lot I don’t know of technical stuff, so I though, why not just writing small blogs about what I learned today, and this came up. I’ll try to keep doing this. It helps me to memorize things and understand them better. So, this is the summary of what I learned today, about how to restrict access by region to a website using Fastly and Varnish.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.fastly.com/vcl/geolocation/&quot;&gt;Fastly Geolocation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/ISO_3166-2&quot;&gt;ISO_3166-2&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.fastly.com/en/guides/basic-authentication&quot;&gt;Basic Authentication&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://varnish-cache.org/docs/trunk/users-guide/vcl.html&quot;&gt;Varnish Configuration Language&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 30 Sep 2019 00:00:00 -0500</pubDate>
+        <link>https://brianasz.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</link>
+        <guid isPermaLink="true">https://brianasz.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Confusing haproxy and keepalived configuration</title>
+        <description>&lt;p&gt;Recently I had a very confusing question in my job about a configuration I knew nothing about. 
 It was a configuration made before I joined the company and it was about an entry in /etc/hosts on every VPS of a specific project, let’s call it project Panda!&lt;/p&gt;
 
 &lt;p&gt;The entry was the following:&lt;/p&gt;
@@ -43,11 +257,11 @@ None of the db servers were &lt;code class=&quot;highlighter-rouge&quot;&gt;192.
 
 &lt;p&gt;&lt;strong&gt;prod-haproxy-000.panda.com “ip addr show” command output:&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4: eth2: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000
-    link/ether bc:76:4e:05:6c:1c brd ff:ff:ff:ff:ff:ff
+    &lt;span class=&quot;nb&quot;&gt;link&lt;/span&gt;/ether bc:76:4e:05:6c:1c brd ff:ff:ff:ff:ff:ff
     inet 192.168.3.4/24 brd 192.168.3.255 scope global eth2
     inet 192.168.3.200/32 scope global eth2
-    inet6 fe80::be76:4eff:fe05:6c1c/64 scope link
-       valid_lft forever preferred_lft forever
+    inet6 fe80::be76:4eff:fe05:6c1c/64 scope &lt;span class=&quot;nb&quot;&gt;link
+       &lt;/span&gt;valid_lft forever preferred_lft forever
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Bingo!!! 
@@ -55,11 +269,11 @@ But, what happens then with the second haproxy server? (It had a different secon
 
 &lt;p&gt;&lt;strong&gt;prod-haproxy-001.panda.com “ip addr show” command output:&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4: eth2: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000
-    link/ether bc:76:4e:05:eb:70 brd ff:ff:ff:ff:ff:ff
+    &lt;span class=&quot;nb&quot;&gt;link&lt;/span&gt;/ether bc:76:4e:05:eb:70 brd ff:ff:ff:ff:ff:ff
     inet 192.168.3.5/24 brd 192.168.3.255 scope global eth2
     inet 192.168.3.201/32 scope global eth2
-    inet6 fe80::be76:4eff:fe05:eb70/64 scope link
-       valid_lft forever preferred_lft forever
+    inet6 fe80::be76:4eff:fe05:eb70/64 scope &lt;span class=&quot;nb&quot;&gt;link
+       &lt;/span&gt;valid_lft forever preferred_lft forever
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I’m not very knowledgeable about haproxy configuration so I remained confused.&lt;/p&gt;
@@ -188,6 +402,19 @@ vrrp_instance 192.168.3.200 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;p&gt;Anyway, I’m glad I was asked about this set up, otherwise I wouln’t know how it worked and wouldn’t have improved my skills. Now if someone else ask, I can speak about it with more confidence.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-web-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04
-http://www.haproxy.org/download/1.2/doc/architecture.txt
-https://www.howtoforge.com/setting-up-a-high-availability-load-balancer-with-haproxy-keepalived-on-debian-lenny&lt;/p&gt;</content><author><name>Briana S.</name></author><summary type="html">Recently I had a very confusing question in my job about a configuration I knew nothing about. It was a configuration made before I joined the company and it was about an entry in /etc/hosts on every VPS of a specific project, let’s call it project Panda!</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-web-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04&quot;&gt;How to set up available web servers with keepalived and floating IPs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;Haproxy architecture&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.howtoforge.com/setting-up-a-high-availability-load-balancer-with-haproxy-keepalived-on-debian-lenny&quot;&gt;Setting up a high availability load balancer with haproxy and keepalived&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 18 Aug 2019 00:00:00 -0500</pubDate>
+        <link>https://brianasz.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</link>
+        <guid isPermaLink="true">https://brianasz.com/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

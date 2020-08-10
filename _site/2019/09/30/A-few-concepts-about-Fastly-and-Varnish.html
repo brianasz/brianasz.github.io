@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>A few concepts about Fastly and Varnish</title>
+  <meta name="description" content="I started to hear about CDNs since I joined my current job. One of the CDNs we use is Fastly, it is being used in almost all of our projects so I got a brief...">
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|Source+Sans+Pro:400,700,200,300|Josefin+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="canonical" href="https://brianasz.com/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html">
+  <link rel="alternate" type="application/rss+xml" title="Briana's Blog" href="https://brianasz.com/feed.xml">
+
+</head>
+
+
+  <body class=" light  ">
+
+    <div class="wrapper">
+  <center> <a href="/index.html"><div class="site-title">   Briana's Blog </div></a></center>
+</div>
+<div class="wrapper site-description">
+<center>  Trying the best version of myself </center>
+</div>
+<div class="wrapper">
+  <div class="trigger site-navigation">
+    <a class="page-link" href="https://brianasz.com">HOME</a>
+
+    
+    
+
+    <span class="exclamationMark">/</span><a class="page-link" href="/about/">About</a>
+    
+    
+    
+    
+    
+    
+    
+
+    <span class="exclamationMark">/</span><a class="page-link" href="/resume/">Resume</a>
+    
+    
+    
+    
+  </div>
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline"><a class="post-title-link"  href="/2019/09/30/A-few-concepts-about-Fastly-and-Varnish.html">A few concepts about Fastly and Varnish</a></h1>
+  <center>  <p class="post-meta"><time datetime="2019-09-30T00:00:00-05:00" itemprop="datePublished">Sep 30, 2019</time></p>
+    
+   </center>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>I started to hear about CDNs since I joined my current job. One of the CDNs we use is Fastly, it is being used in almost all of our projects so I got a brief introduction about it when I first joined the company. At that time I learned that Fastly was a Content Delivery Network that sits in front of every project’s infrastructure and handles cache.</p>
+
+<p>Since then, I have barely interacted with it actively, however, I was recently assigned to a new project and they are expected to go live in a couple of weeks but, they are planning on going live only on specific regions of a country and they want authentication set up for one specific region. In order to do that I need to perform configuration changes on Fastly.</p>
+
+<p>So today I learned a couple more things about Fastly and overall CDNs…</p>
+
+<ul>
+  <li><em>That behind Fastly there is a software named Varnish</em></li>
+  <li><em>That Varnish is an HTTP caching system. In fact, Varnish is an HTTP accelerator designed for content-heavy dynamic web sites.</em></li>
+</ul>
+
+<p>But what does content-heavy dynamic web sites even mean?</p>
+
+<p>Well, when a website has a lot of dynamic content (web content that changes based on the behavior, preferences, and interests of the user), that will cause the backend servers to be constantly active because every time a resource is requested it will be requested from them since dynamic content is not cacheable. So Varnish helps to easy the workload the backend servers receive by caching part of the content, the static content, hence serving it itself without the need to reach out to it to the backend servers as well.</p>
+
+<p><strong>Note:</strong> <em>Varnish will cash only static content.</em></p>
+
+<ul>
+  <li>
+    <p><em>I also learned that Varnish is designed to work specifically with HTTP.</em></p>
+  </li>
+  <li>
+    <p><em>That an HTTP accelerator is a proxy server that reduces web site access time.</em></p>
+  </li>
+  <li>
+    <p><em>That VCL is Varnish Configuration Language and it is the domain specific language of Varnish and the way we apply rules to it. Varnish will translates this configurations into binary code and execute them when the request arrives. In fact, Fastly actually reads a VCL file where we can put all the Varnish rules we want to apply.</em></p>
+  </li>
+  <li>
+    <p><em>That the VCL file is divided into subroutines that are applied at different times. One is executed when the request arrives to the website and another when files are fetched from the backend servers.</em></p>
+  </li>
+</ul>
+
+<p><strong>Subroutines:</strong></p>
+
+<blockquote>
+  <p>vcl_recv = is called at the beginning of a request, after the complete request has been received and parsed. Its purpose is to decide whether or not to serve the request, how to do it, and, if applicable, which backend to use.</p>
+</blockquote>
+
+<blockquote>
+  <p>vcl_fetch = is called after a document has been successfully retrieved from the backend. Normal tasks here are to alter the response headers, trigger ESI processing, try alternate backend servers in case the request failed.</p>
+</blockquote>
+
+<p><strong>Note:</strong> <em>According to the documentation, 99% of all the changes you’ll need to do in Varnish will be done in those two subroutines (vcl_recv and vcl_fetch).</em></p>
+
+<p>So, going back to the reason I got this task, if I need to limit the access to a website to a specific region by using Varnish rules, then I need to add a rule to the vcl_recv subroutine, because that’s the subroutine than decides what to do with the request when it first arrives. Besides that, I also need to make use of Fastly Geolocation VCL features.</p>
+
+<p>In the case of Fastly, it basically has a list of variables that facilitates making configuration changes on the VCL file. The variable I’ll need to make use of is “client.geo.region”. So, for example, if I want to limit the access to my website, let’s say www.brianasz.com to the states of Sinaloa and Sonora, Mexico, then we need to use something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span> client.geo.region <span class="o">!=</span> <span class="s2">"SIN"</span> <span class="o">&amp;&amp;</span> client.geo.region <span class="o">!=</span> <span class="s2">"SON"</span> <span class="o">)</span>
+<span class="o">{</span> 
+  error 404 <span class="s2">"Not Found"</span><span class="p">;</span>
+<span class="o">}</span>
+
+<span class="c"># Where SIN is Sinaloa and SON is Sonora according to the ISO 3166-2 </span>
+<span class="c"># country code subdivision</span>
+</code></pre></div></div>
+
+<p>What this does is, if traffic coming to the website doesn’t come from the state of Sinaloa or Sonora, Mexico, then the website should return a 404 not found error.</p>
+
+<p>And how do I set up authentication for one specific region, for example Sinaloa?… With something like this:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span> client.geo.region <span class="o">==</span> <span class="s2">"SIN"</span> <span class="o">)</span> 
+<span class="o">{</span>
+  <span class="k">if</span> <span class="o">(!</span> table.lookup<span class="o">(</span>customer_keys, req.http.Authorization<span class="o">)</span> <span class="o">)</span> 
+  <span class="o">{</span>
+    error 401 <span class="s2">"Restricted"</span><span class="p">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>that, and with a VCL snippet that contains the actual keys, something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>table customer_keys <span class="o">{</span>
+  <span class="s2">"Basic key_value_pair_basae64_encoded"</span>: <span class="s2">"project_name"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Note:</strong> <em>The region code is based on ISO 3166-2 country code subdivision.</em></p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Sometimes I have a hard time to structure the ideas in my head in order to write something in here. There is plenty of topics to write about and a lot I don’t know of technical stuff, so I though, why not just writing small blogs about what I learned today, and this came up. I’ll try to keep doing this. It helps me to memorize things and understand them better. So, this is the summary of what I learned today, about how to restrict access by region to a website using Fastly and Varnish.</p>
+
+<h2 id="references">References</h2>
+<p><a href="https://docs.fastly.com/vcl/geolocation/">Fastly Geolocation</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO_3166-2</a></p>
+
+<p><a href="https://docs.fastly.com/en/guides/basic-authentication">Basic Authentication</a></p>
+
+<p><a href="http://varnish-cache.org/docs/trunk/users-guide/vcl.html">Varnish Configuration Language</a></p>
+
+  </div>
+
+  <footer class="postNavigation">
+  
+    <a class="postPrev" href="/2019/08/18/The-confusing-haproxy-and-keepalived-configuration-I-found.html">
+        &laquo; Confusing haproxy and keepalived configuration
+    </a>
+  
+  
+    <a class="postNext" href="/2019/11/26/Reverting_merged_commits.html">
+        Reverting multiple merged commits &raquo;
+    </a>
+  
+  </footer>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading small-site-title">Briana's Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list footer-content">
+          <li>Powered By <a href="http://github.com/hemangsk/Gravity">Gravity</a></li>
+          <!--<li>Made with <i class="fa fa-heart"></i> on <a href="http://jekyllrb.com"><span>{ { Jekyll } }</a></span></li>-->
+
+
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2 footer-content">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/brianasz"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span class="username">brianasz</span></a>
+
+          </li>
+          
+
+          
+
+          
+          <li>
+            <a href="https://www.linkedin.com/in/brianasz"><span class="icon icon--linkedin"><svg viewBox="0 50 512 512"><path fill="#828282" d="M150.65,100.682c0,27.992-22.508,50.683-50.273,50.683c-27.765,0-50.273-22.691-50.273-50.683
+        C50.104,72.691,72.612,50,100.377,50C128.143,50,150.65,72.691,150.65,100.682z M143.294,187.333H58.277V462h85.017V187.333z
+        M279.195,187.333h-81.541V462h81.541c0,0,0-101.877,0-144.181c0-38.624,17.779-61.615,51.807-61.615
+        c31.268,0,46.289,22.071,46.289,61.615c0,39.545,0,144.181,0,144.181h84.605c0,0,0-100.344,0-173.915
+        s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z"/></svg></span><span class="username">brianasz</span></a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3 site-description">
+        <p>Trying the best version of myself</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
