@@ -10,7 +10,7 @@ Is a log of what mysqld is doing and this includes:
   1. Client's connections and disconnections.
   2. Each query statement received from clients.
 
-# What is looged? #
+# What is logged? #
 All the client is sending to mysqld, this also includes the protocol used by the client to establish the connection and the connection_type can be any of the following: 
   * TCP/IP
   * SSL/TLS
